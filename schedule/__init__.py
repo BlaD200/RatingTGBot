@@ -1,0 +1,2 @@
+schedules_dir = '../schedules'
+
