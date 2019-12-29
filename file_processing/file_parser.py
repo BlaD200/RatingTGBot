@@ -5,7 +5,7 @@ from docx import Document
 from openpyxl import load_workbook
 
 from sql.subjects_info_writer import fill_subjects_info_table, get_faculty, is_mp
-from timetable import timetables_dir, timetable_downloader
+from web_processing import timetables_dir, timetable_downloader
 
 
 def extract_from_xlsx(filename: str):

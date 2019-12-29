@@ -1,4 +1,3 @@
-from file_processing.file_parser import extract_from_files
 from sql import initialize_connection, update_last_index
 from mysql.connector.errors import DataError
 

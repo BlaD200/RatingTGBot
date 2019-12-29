@@ -4,8 +4,8 @@ import requests
 import os
 import datetime
 
-from timetable import timetables_dir
-from timetable.timetables_link_parser import parse_links
+from web_processing import timetables_dir
+from web_processing.timetables_link_parser import parse_links
 from sql import initialize_connection, update_last_index
 
 
