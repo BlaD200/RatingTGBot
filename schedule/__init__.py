@@ -1,2 +1,0 @@
-schedules_dir = '../schedules'
-

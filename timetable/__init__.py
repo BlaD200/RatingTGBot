@@ -1,0 +1,2 @@
+timetables_dir = '../timetables'
+

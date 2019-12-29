@@ -4,14 +4,14 @@ import requests
 import os
 import datetime
 
-from schedule import schedules_dir
-from schedule.scheduler_link_parser import parse_links
-from sql import initialize_connection
+from timetable import timetables_dir
+from timetable.timetables_link_parser import parse_links
+from sql import initialize_connection, update_last_index
 
 
 def download(url: str, filename: str) -> bool:
     """
-    Download the file from giving url and place into /schedules/[filename]
+    Download the file from giving url and place into /timetables/[filename]
     :param url: the url from which file will be loaded
     :param filename: name of the fle that will be placed on dick
     :return: true if if downloaded and saved file successfully else false
@@ -20,33 +20,48 @@ def download(url: str, filename: str) -> bool:
     if r.status_code != 200:
         return False
 
-    with open(r'%s/%s' % (schedules_dir, filename), 'wb') as f:
+    with open(r'%s/%s' % (timetables_dir, filename), 'wb') as f:
         f.write(r.content)
     return True
 
 
-def update_schedules():
+def update_timetables():
+    """
+    Downloads timetables from urls are given by the function :ref:`timetable_link_parser`
+    if they updated on site after last local update and yields downloaded filename
+
+    :return: generator through each downloaded file
+    """
     urls = parse_links()
 
     db = initialize_connection()
     cursor = db.cursor()
-    cursor.execute("SELECT schedule_name FROM update_info")
+
+    update_last_index(db, "update_info", "timetable_id")
+
+    cursor.execute("SELECT timetable_name FROM update_info")
     result = cursor.fetchall()
     files = list()
     for x in result:
         files.append(x[0])
 
-    for schedule in urls:
-        filename = r'%s/%s' % (schedules_dir, schedule)
-        cursor.execute("SELECT last_update FROM update_info WHERE schedule_name = %s;", ("first",))
+    for timetable in urls:
+        filename = r'%s/%s' % (timetables_dir, timetable)
+        cursor.execute("SELECT last_update FROM update_info WHERE timetable_name = %s;", ("first",))
         last_update = cursor.fetchall()
         if last_update:
             last_update = last_update[0][0]
-        if schedule not in files or (last_update and last_update < urls[schedule][1]):
-            download(urls[schedule][0], filename)
-            cursor.execute("INSERT INTO update_info(schedule_name, url_to_schedule, last_update) VALUES (%s, %s, %s)",
-                           (schedule, urls[schedule][0], str(datetime.datetime.now()).split(".")[0]))
-            db.commit()
+        if timetable not in files or (last_update and last_update < urls[timetable][1]):
+            if download(urls[timetable][0], filename):
+                cursor.execute("INSERT INTO update_info(timetable_name, url_to_timetable, last_update, faculty_name, isMP)"
+                               " VALUES (%s, %s, %s, %s, %s)",
+                               (timetable, urls[timetable][0], str(datetime.datetime.now()).split(".")[0],
+                                urls[timetable][2], urls[timetable][3]))
+                db.commit()
+                print("Downloaded... ||{:<100s}||".format(timetable))
+                yield timetable
+
+    db.close()
 
 
 def creation_date(path_to_file: str) -> datetime.datetime:
@@ -71,5 +86,5 @@ def creation_date(path_to_file: str) -> datetime.datetime:
 
 
 if __name__ == '__main__':
-    update_schedules()
+    list(update_timetables())
     pass
