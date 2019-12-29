@@ -50,6 +50,7 @@ def extract_from_docx(filename: str):
         info = ''.join([paragraph.text for paragraph in doc.paragraphs])
         m = re.search(pattern, info)
         speciality = m.group(2)
+        speciality = re.sub(' +', ' ', speciality)
         year = int(m.group(5))
         if is_mp(filename):
             year += 4
