@@ -63,7 +63,7 @@ def extract_from_docx(filename: str):
                 subject = [run.text for run in row.cells[2].paragraphs[0].runs if run.bold and run.text]
                 if subject:
                     subject = ''.join(subject)
-                    subject = subject.strip()
+                    subject = re.sub(' +', ' ', subject)
                     if subject and subject not in subjects:
                         subjects.append(subject)
         fill_subjects_info_table(subjects, year, speciality, faculty_name)
