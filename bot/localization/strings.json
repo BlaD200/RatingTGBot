@@ -1,0 +1,38 @@
+{
+  "calculate_rating": {
+    "ukr": "Обрахувати середній бал",
+    "eng": ""
+  },
+  "get_states": {
+    "ukr": "Переглянути мій рейтинг",
+    "eng": ""
+  },
+  "settings": {
+    "ukr": "Налаштування",
+    "eng": ""
+  },
+  "edit": {
+    "ukr": "Редагувати спеціальність",
+    "eng": ""
+  },
+  "back": {
+    "ukr": "Назад",
+    "eng": ""
+  },
+  "yes": {
+    "ukr": "Так✅",
+    "eng": ""
+  },
+  "no": {
+    "ukr": "Ні❌",
+    "eng": ""
+  },
+  "notimpl": {
+    "ukr": "Ще не реалізовано",
+    "eng": "Not implemented operation yet"
+  },
+  "use_keyb": {
+    "ukr": "Будь ласка, використовуйте кнопки для роботи зі мною.",
+    "eng": "Please use buttons to communicate with me."
+  }
+}
