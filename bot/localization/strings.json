@@ -19,6 +19,10 @@
     "ukr": "Назад",
     "eng": ""
   },
+  "exit": {
+    "ukr": "Повернутися до початку",
+    "eng": "Exit to start"
+  },
   "yes": {
     "ukr": "Так✅",
     "eng": ""
@@ -27,7 +31,7 @@
     "ukr": "Ні❌",
     "eng": ""
   },
-  "notimpl": {
+  "not_impl": {
     "ukr": "Ще не реалізовано",
     "eng": "Not implemented operation yet"
   },

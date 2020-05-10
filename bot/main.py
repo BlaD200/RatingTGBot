@@ -11,6 +11,7 @@ from bot.constants import BOT_TOKEN
 from bot.keyboards import average_mark_conversation
 from bot.keyboards.base_keyboard import get_menu_keyboard
 from bot.localization.localization import get_localize
+from bot.user import User
 
 logging.basicConfig(format='%(levelname)s %(name)s | %(asctime)s | %(message)s',
                     level=logging.INFO)
@@ -21,7 +22,7 @@ app = Flask(__name__)
 dispatcher: Dispatcher = None
 
 # Registering logger here
-logger: logging.Logger = logging.getLogger()
+logger: logging.Logger = logging.getLogger(__name__)
 
 
 def setup():
@@ -47,22 +48,22 @@ def setup():
 
 def menu(update: Update, context: CallbackContext):
     logger.info("menu function call")
-    strings = get_localize("ukr")
+    strings = get_localize(User().get_lang())
     if update.message.text == strings.calculate_rating:
         return average_mark_conversation.start(update, context)
     elif update.message.text == strings.get_states:
         update.message.reply_text(
-            text=strings.notimpl,
+            text=strings.not_impl,
             reply_markup=get_menu_keyboard()
         )
     elif update.message.text == strings.settings:
         update.message.reply_text(
-            text=strings.notimpl,
+            text=strings.not_impl,
             reply_markup=get_menu_keyboard()
         )
     elif update.message.text == strings.edit:
         update.message.reply_text(
-            text=strings.notimpl,
+            text=strings.not_impl,
             reply_markup=get_menu_keyboard()
         )
     else:
