@@ -15,7 +15,7 @@ class User:
         return self.lang
 
 
-def get_base_reply_keyboard(user=User()):
+def get_menu_keyboard(user=User()):
     strings = get_localize(user.get_lang())
     keyboard = [
         [strings.calculate_rating],

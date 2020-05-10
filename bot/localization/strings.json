@@ -34,5 +34,21 @@
   "use_keyb": {
     "ukr": "Будь ласка, використовуйте кнопки для роботи зі мною.",
     "eng": "Please use buttons to communicate with me."
+  },
+  "flow": {
+    "ukr": "Потік",
+    "eng": ""
+  },
+  "spec": {
+    "ukr": "Спеціальність",
+    "eng": "Speciality"
+  },
+  "faculty": {
+    "ukr": "Факультет",
+    "eng": "Faculty"
+  },
+  "univ": {
+    "ukr": "Університет",
+    "eng": "University"
   }
 }
