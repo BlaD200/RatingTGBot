@@ -17,6 +17,12 @@ class Map(dict):
                 self[k] = v
 
     def __getattr__(self, attr):
+        """
+        :param attr:
+        :return:
+        :rtype: Map
+        :rtype: object
+        """
         return self.get(attr)
 
     def __setattr__(self, key, value):
@@ -50,6 +56,12 @@ class Map(dict):
         inner(self.__dict__)
         return ''.join(s)
 
+    def get_nested_values(self):
+        res = []
+        for v in self.__dict__.values():
+            res.append(v)
+        return res.copy()
+
 
 if __name__ == '__main__':
     m = Map({'first_name': 'Dan'}, last_name='Eldon', age=24, sports=['Football', 'Baseball'])
@@ -69,3 +81,8 @@ if __name__ == '__main__':
     m.dict_key = {"one": 1, "four": {"first term": 2, "second_term": 2}}
     print()
     print(m)
+
+    # Nested values
+    m.nested = Map({'a': 1, 'b': 2, 'c': 3})
+    print()
+    print(m.nested.get_nested_values())

@@ -4,7 +4,7 @@ from json import load
 from bot.localization.map import Map
 
 
-def get_localize(lang: str):
+def get_localize(lang: str) -> Map:
     """
     Return dict with values localized for the given language if exist else raises :code:`ValueError`
 
@@ -30,6 +30,23 @@ def get_localize(lang: str):
     return Map(strings_dict)
 
 
+def get_localization_list(key):
+    with open("localization/strings.json", encoding='utf-8') as f:
+        strings_dict = load(f)
+
+    res = []
+    for k, v in strings_dict.items():
+        if k == key:
+            if type(v) is dict:
+                for val in v.values():
+                    res.append(val)
+                return res.copy()
+    raise ValueError("Given key '{key}' could not be found.".format(key=key))
+
+
 if __name__ == '__main__':
     strings = get_localize("ukr")
     print(strings.edit)
+    print()
+    print(get_localization_list('back'))
+    print(get_localization_list('exit'))

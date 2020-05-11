@@ -6,7 +6,7 @@ from telegram import Update
 from telegram.ext import CallbackContext, ConversationHandler, MessageHandler, Filters
 
 from bot.keyboards.base_keyboard import get_menu_keyboard
-from bot.localization.localization import get_localize
+from bot.localization.localization import get_localize, get_localization_list
 from bot.main import menu
 from bot.user import User
 
@@ -134,13 +134,8 @@ def next_message(update: Update, context: CallbackContext):
 
 
 def get_handler() -> ConversationHandler:
-    back_ukr = get_localize("ukr").back
-    back_eng = get_localize("eng").back
-    back_names = [back_ukr, back_eng]
-
-    exit_ukr = get_localize("ukr").exit
-    exit_eng = get_localize("eng").exit
-    exit_names = [exit_ukr, exit_eng]
+    back_names = get_localization_list('back')
+    exit_names = get_localization_list('exit')
 
     conv_handl = ConversationHandler(
         entry_points=[
